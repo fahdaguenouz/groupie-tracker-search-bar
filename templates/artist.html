@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Name}}</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 20px auto;
+        line-height: 1.6;
+        color: #333;
+    }
+    .artist-info {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .artist-info img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+    h2 {
+        margin-top: 0;
+        color: #0056b3;
+    }
+    .section-title {
+        font-weight: bold;
+        color: #0056b3;
+        margin-top: 15px;
+    }
+    .list {
+        list-style-type: square;
+        padding-left: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="artist-info">
+    <img src="{{.Image}}" alt="{{.Name}}">
+    <h2>{{.Name}}</h2>
+    <p><strong>Artist ID:</strong> {{.ID}}</p>
+    <p><strong>Creation Date:</strong> {{.CreationDate}}</p>
+    <p><strong>First Album:</strong> {{.FirstAlbum}}</p>
+
+    <div class="section-title">Members:</div>
+    <ul class="list">
+        {{range .Members}}
+            <li>{{.}}</li>
+        {{end}}
+    </ul>
+
+    <div class="section-title">Locations:</div>
+        <ul class="list">
+            {{range .Loca.Locations}}
+                <li>{{.}}</li>
+            {{end}}
+        </ul>
+
+    <div class="section-title">Concert Dates:</div>
+    <ul class="list">
+        {{range .Loca.AllDates.Dates}}
+            <li>{{.}}</li>
+        {{end}}
+    </ul>
+
+    <div class="section-title">Relations:</div>
+    <ul class="list">
+        {{range $location, $dates := .Rela.DatesLocations}}
+            <li><strong>{{$location}}:</strong>
+                <ul class="list">
+                    {{range $dates}}
+                        <li>{{.}}</li>
+                    {{end}}
+                </ul>
+            </li>
+        {{end}}
+    </ul>
+    <a href="/">back home</a>
+</div>
+</body>
+</html>

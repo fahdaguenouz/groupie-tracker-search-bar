@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f5f5f5; 
+            margin: 0; 
+            padding: 20px;
+        }
+        h1 { 
+            text-align: center; 
+            color: #333;
+        }
+        ul { 
+            list-style-type: none; 
+            padding: 0; 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center;
+        }
+        li { 
+            background-color: #fff; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            width: 200px; 
+            margin: 15px; 
+            padding: 15px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center; 
+            transition: transform 0.2s;
+        }
+        li:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        img { 
+            width: 100px; 
+            height: auto; 
+            border-radius: 50%; 
+            margin-bottom: 10px; 
+        }
+        h2 { 
+            font-size: 18px; 
+            color: #555; 
+            margin: 10px 0 5px;
+        }
+        a { 
+            text-decoration: none; 
+            color: #007BFF; 
+            font-weight: bold;
+            display: block;
+        }
+        a:hover { 
+            text-decoration: underline; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Results</h1>
+    <ul>
+        {{range .Artists}}
+        <li>
+            <a href="/artists/{{.ID}}">
+                <h2>{{.Name}}</h2>
+                <img src="{{.Image}}" alt="{{.Name}}">
+            </a>
+        </li>
+        {{else}}
+        <li>No results found for "{{.Query}}".</li>
+        {{end}}
+    </ul>
+    <div style="text-align:center;">
+        <a href="/">Return to Home</a>
+    </div>
+</body>
+</html>

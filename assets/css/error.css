@@ -1,0 +1,44 @@
+/* error page styles */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url("/assets/imgs/bg.png");
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #e74c3c;
+}
+div a {
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 35px;
+    cursor: pointer;
+    background-color: rgb(92, 162, 253);
+    transition:  0.6s;}
+a {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+div a:hover {
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 35px;
+    cursor: pointer;
+    background-color: rgb(13, 106, 192);
+    transition:  0.6s;
+}
