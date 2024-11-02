@@ -15,6 +15,31 @@
             text-align: center; 
             color: #333;
         }
+        form { 
+            text-align: center; 
+            margin-bottom: 20px; 
+        }
+        input[type="text"] { 
+            padding: 10px; 
+            width: 300px; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            margin-right: 10px; 
+        }
+        button { 
+            padding: 10px 15px; 
+            border: none; 
+            border-radius: 5px; 
+            background-color: #007BFF; 
+            color: white; 
+            font-size: 16px; 
+            cursor: pointer; 
+            transition: background-color 0.3s; 
+        }
+        button:hover { 
+            background-color: #0056b3; 
+        }
         ul { 
             list-style-type: none; 
             padding: 0; 
@@ -52,7 +77,7 @@
             text-decoration: none; 
             color: #007BFF; 
             font-weight: bold;
-            display:block
+            display: block;
         }
         a:hover { 
             text-decoration: underline; 
@@ -70,16 +95,7 @@
         </datalist>
         <button type="submit">Search</button>
     </form>
-    <div>
-        <h2>Suggestions:</h2>
-        <ul>
-            {{range .SearchResult.Artists}}
-            <li>
-                <h2>{{.Name}}</h2>
-            </li>
-            {{end}}
-        </ul>
-    </div>
+    
     <ul>
         {{range .Artists}}
         <li>

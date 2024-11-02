@@ -7,17 +7,19 @@ import (
 )
 
 func ErrorHandler(w http.ResponseWriter, r *http.Request, statusCode int) {
-	// Check if the header has already been sent
-	if w.Header().Get("Content-Type") != "" {
-		return // Avoid writing the header again
+	headerWritten := false
+
+	// If we haven't already written the header, do so
+	if w.Header().Get("Content-Type") == "" {
+		w.WriteHeader(statusCode)
+		headerWritten = true
 	}
-
-	// Set the response header
-	w.WriteHeader(statusCode)
-
 	template, err := template.ParseFiles("templates/error.html")
 	if err != nil {
-		http.Error(w, "Could not load error template", http.StatusInternalServerError)
+		// If we failed to load the template, we should write an error response
+		if !headerWritten {
+			http.Error(w, "Could not load error template", http.StatusInternalServerError)
+		}
 		return
 	}
 
@@ -27,7 +29,9 @@ func ErrorHandler(w http.ResponseWriter, r *http.Request, statusCode int) {
 	}
 
 	if err := template.Execute(w, customError); err != nil {
-		http.Error(w, "Could not render error template", http.StatusInternalServerError)
+		if !headerWritten {
+			http.Error(w, "Could not render error template", http.StatusInternalServerError)
+		}
 	}
 
 }

@@ -3,6 +3,7 @@ package handlers
 import (
 	"groupie/models"
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -22,12 +23,16 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		Artists []models.Artist
+		Artists      []models.Artist
+		SearchResult struct {
+			Artists []models.Artist
+		}
 	}{
 		Artists: artists,
-	}
+		}
 	// Render the main template
 	if err := renderTemplate(w, "index.html", data); err != nil {
+		log.Printf("Error rendering template: %v", err)
 		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
@@ -36,14 +41,12 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 func renderTemplate(w http.ResponseWriter, templateName string, data interface{}) error {
 	tmpl, err := template.ParseFiles("templates/" + templateName)
 	if err != nil {
-		// Log the error for debugging
-		// log.Printf("Error parsing template %s: %v", templateName, err)
-		return err // Return error instead of writing to response
+		// Return the error to be handled by the calling function
+		return err
 	}
 
 	if err := tmpl.Execute(w, data); err != nil {
-		// Log the error for debugging
-		// log.Printf("Error executing template %s: %v", templateName, err)
+		// Return the error to be handled by the calling function
 		return err
 	}
 
