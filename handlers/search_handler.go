@@ -28,22 +28,21 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	// Filter artists based on the query
 	var filteredArtists []models.Artist
 	for _, artist := range artists {
+		// Check if artist name matches the query
 		if strings.Contains(strings.ToLower(artist.Name), queryLower) {
 			filteredArtists = append(filteredArtists, artist)
+			continue // Skip to the next artist
 		}
+		// Check if any member matches the query
 		for _, member := range artist.Members {
 			if strings.Contains(strings.ToLower(member), queryLower) {
 				filteredArtists = append(filteredArtists, artist)
-				break
+				break // No need to check further members
 			}
 		}
-		if strings.Contains(strings.ToLower(artist.Locations), queryLower) {
-			filteredArtists = append(filteredArtists, artist)
-		}
-		if strings.Contains(strings.ToLower(artist.FirstAlbum), queryLower) {
-			filteredArtists = append(filteredArtists, artist)
-		}
-		if strings.Contains(strings.ToLower(string(artist.CreationDate)), queryLower) {
+		// Check other fields as needed
+		if strings.Contains(strings.ToLower(artist.FirstAlbum), queryLower) ||
+			strings.Contains(strings.ToLower(artist.Locations), queryLower) {
 			filteredArtists = append(filteredArtists, artist)
 		}
 	}
