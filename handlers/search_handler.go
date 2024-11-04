@@ -29,8 +29,6 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	query := r.FormValue("q")
 	queryLower := strings.ToLower(query)
 
-
-
 	// Filter artists based on the query
 
 	var wg sync.WaitGroup
@@ -125,7 +123,6 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	// 		continue // Skip to the next artist
 	// 	}
 
-	
 	// 	// Check if any location matches the query after fetching locations
 	// 	for _, locat := range artist.Loca.Locations {
 	// 		if strings.Contains(strings.ToLower(locat), queryLower) {
@@ -134,7 +131,6 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	// 		}
 	// 	}
 	// }
-
 
 	data := struct {
 		Artists []models.Artist

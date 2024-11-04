@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	"groupie/models"
 	"html/template"
 	"log"
 	"net/http"
+
+	"groupie/models"
 )
 
 func MainHandler(w http.ResponseWriter, r *http.Request) {
@@ -21,15 +22,30 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
+	// Prepare to collect unique locations
+	locationSet := make(map[string]struct{}) // To store unique locations
+
+	for _, artist := range artists {
+		if err := GetForeigenData(&artist); err == nil { // Fetch foreign data including locations
+			for _, loc := range artist.Loca.Locations {
+				locationSet[loc] = struct{}{} // Collect unique locations
+			}
+		}
+	}
+
+	// Convert locationSet to a slice for passing to the template
+	var locations []string
+	for loc := range locationSet {
+		locations = append(locations, loc)
+	}
 
 	data := struct {
-		Artists      []models.Artist
-		SearchResult struct {
-			Artists []models.Artist
-		}
+		Artists   []models.Artist
+		Locations []string // Add Locations field here
 	}{
-		Artists: artists,
-		}
+		Artists:   artists,
+		Locations: locations,
+	}
 	// Render the main template
 	if err := renderTemplate(w, "index.html", data); err != nil {
 		log.Printf("Error rendering template: %v", err)

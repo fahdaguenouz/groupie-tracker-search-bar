@@ -87,12 +87,20 @@
 <body>
     <h1>Artists</h1>
     <form method="POST" action="/search">
-        <input type="text" name="q" id="search-bar" placeholder="Search artists, members, etc..." autocomplete="off" list="suggestions">
+        <input type="text" name="q" id="search-bar" placeholder="Search artists or locations..." autocomplete="off" list="suggestions">
         <datalist id="suggestions">
-            {{range .Artists}}
-            <option value="{{.Name}}">
-            {{end}}
+           {{range .Artists}}
+                <option value="{{.Name}}">
+           {{end}}
+           {{range .Locations}} 
+                <option value="{{.}}">{{.}}</option>
+           {{end}}
+           
+           {{range .Artists}}
+                <option value="{{.CreationDate}}">{{.Name}}</option> 
+           {{end}}
         </datalist>
+        
         <button type="submit">Search</button>
     </form>
     
