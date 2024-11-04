@@ -8,7 +8,7 @@ import (
 )
 
 func ArtistDetailHandler(w http.ResponseWriter, r *http.Request) {
-	id := r.URL.Path[len("/artists/"):] // Extract artist ID from URL
+	id := r.URL.Query().Get("id")  // Extract artist ID from URL
 	var artist models.Artist
 
 	err2 := controllers.FetchData("https://groupietrackers.herokuapp.com/api/artists/"+id, &artist)
