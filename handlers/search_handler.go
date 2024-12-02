@@ -27,7 +27,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Get search query
 	query := r.FormValue("q")
-	// query=strings.ReplaceAll(query,", ","-")
+	query=strings.ReplaceAll(query,", ","-")
 	queryLower := strings.ToLower(query)
 	
 	// Filter artists based on the query
