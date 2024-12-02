@@ -99,6 +99,14 @@
            {{range .Artists}}
                 <option value="{{.CreationDate}}">{{.Name}}</option> 
            {{end}}
+           {{range .Artists}}
+                <option value="{{.FirstAlbum}}">{{.Name}}</option> 
+           {{end}}
+           {{range .Artists}}
+                {{range .Members}}
+                    <option value="{{.}}">{{.}}</option>
+                {{end}}
+           {{end}}
         </datalist>
         
         <button type="submit">Search</button>

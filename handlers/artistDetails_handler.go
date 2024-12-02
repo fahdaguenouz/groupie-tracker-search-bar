@@ -27,7 +27,7 @@ func ArtistDetailHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	if err := renderTemplate(w, "artist.html", artist); err != nil {
+	if err := renderTemplate(w,r, "artist.html", artist); err != nil {
 		ErrorHandler(w, r, http.StatusMethodNotAllowed)
 		return
 	}

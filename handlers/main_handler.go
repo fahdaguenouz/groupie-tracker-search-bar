@@ -47,23 +47,23 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 		Locations: locations,
 	}
 	// Render the main template
-	if err := renderTemplate(w, "index.html", data); err != nil {
+	if err := renderTemplate(w,r, "index.html", data); err != nil {
 		log.Printf("Error rendering template: %v", err)
 		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
 }
 
-func renderTemplate(w http.ResponseWriter, templateName string, data interface{}) error {
+func renderTemplate(w http.ResponseWriter,r *http.Request, templateName string, data interface{}) error {
 	tmpl, err := template.ParseFiles("templates/" + templateName)
 	if err != nil {
-		// Return the error to be handled by the calling function
-		return err
+		ErrorHandler(w, r, http.StatusInternalServerError)
+		
 	}
 
 	if err := tmpl.Execute(w, data); err != nil {
-		// Return the error to be handled by the calling function
-		return err
+		ErrorHandler(w, r, http.StatusInternalServerError)
+		
 	}
 
 	return nil
